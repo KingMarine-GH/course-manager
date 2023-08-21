@@ -1,6 +1,6 @@
 import { JSDOM } from 'jsdom';
 
-export async function scrapeData(htmlContent) {
+export async function scrapeData(htmlContent: string) {
     const content = htmlContent;
 
     // Create a DOM from the HTML content
@@ -9,6 +9,7 @@ export async function scrapeData(htmlContent) {
 
     // Find the first element with the "content" class
     const contentElement = document.querySelector('.content');
+    if (contentElement == null) throw new Error('Invalid file given');
 
     // Get the second table element inside the content element
     const tableElements = contentElement.querySelectorAll('table');
@@ -16,6 +17,7 @@ export async function scrapeData(htmlContent) {
 
     // Get the first tbody element inside the second table element
     const tbodyElement = secondTableElement.querySelector('tbody');
+    if (tbodyElement == null) throw new Error('Invalid file given');
 
     // Convert the tr elements inside the tbody element into objects
     const trElements = tbodyElement.querySelectorAll('tr');
@@ -67,6 +69,8 @@ export async function scrapeData(htmlContent) {
         for (const dualTime of course.Time) {
             newTime.push(dualTime.split('-'));
         }
+        // @ts-expect-error The conversion doesn't have a set typedef
+        // although, outside of this file, there will be a typedef
         course.Time = newTime;
     }
 
