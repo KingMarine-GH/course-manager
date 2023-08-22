@@ -4,9 +4,10 @@
     import { onMount } from 'svelte';
 
     onMount(() => {
-        if (!$user) {
-            goto('/login');
-        }
+        // Added setTimeout as Firebase needs a few milliseconds to initialize
+        setTimeout(() => {
+            if (!$user) goto('/login');
+        }, 500);
     });
 </script>
 
