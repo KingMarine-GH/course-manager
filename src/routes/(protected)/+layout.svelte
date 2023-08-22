@@ -1,10 +1,13 @@
 <script lang="ts">
     import { user } from '$lib/client/auth';
     import { goto } from '$app/navigation';
+    import { onMount } from 'svelte';
 
-    if (!$user) {
-        goto('/login');
-    }
+    onMount(() => {
+        if (!$user) {
+            goto('/login');
+        }
+    });
 </script>
 
 <slot />
