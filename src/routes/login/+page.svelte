@@ -17,4 +17,4 @@
 </script>
 
 <p>Please use your @dlsu.edu.ph email account to sign in.</p>
-<button on:click={GoogleSignIn}>Login with your DLSU Account</button>
+<button class="btn btn-primary" on:click={GoogleSignIn}>Login with your DLSU Account</button>

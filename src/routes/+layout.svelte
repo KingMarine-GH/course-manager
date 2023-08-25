@@ -18,14 +18,18 @@
     import AccountButton from './AccountButton.svelte';
 </script>
 
-{#if dev}
-    <div class="flex gap-2">
-        <p>User status: {$user?.displayName}</p>
-    </div>
-{/if}
+<div class="p-2">
+    {#if dev}
+        <div class="flex gap-2">
+            <h1>Dev Preview Information</h1>
+            <p>User status: {$user?.displayName}</p>
+        </div>
+    {/if}
 
-<nav>
-    <AccountButton />
-</nav>
-
-<slot />
+    <nav>
+        <AccountButton />
+    </nav>
+    <main>
+        <slot />
+    </main>
+</div>
