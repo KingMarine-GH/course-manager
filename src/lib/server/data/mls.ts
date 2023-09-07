@@ -1,6 +1,6 @@
 import { JSDOM } from 'jsdom';
 
-export async function scrapeData(htmlContent: string) {
+export async function mlsData(htmlContent: string) {
     const content = htmlContent;
 
     // Create a DOM from the HTML content
