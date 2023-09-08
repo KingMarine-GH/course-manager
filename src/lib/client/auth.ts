@@ -8,28 +8,19 @@ import type { User } from 'firebase/auth';
 
 const auth = getAuth();
 
-function userStore() {
-    let unsubscribe: () => void;
+export const user = writable<User | null>();
 
-    if (!auth || !globalThis.window) {
-        console.warn('Auth is not initialized/disabled in this browser');
-        const { subscribe } = writable<User | null>(null);
-        return {
-            subscribe
-        };
+let userNotWritable: User | null = null;
+user.subscribe((userState) => (userNotWritable = userState));
+
+onAuthStateChanged(auth, (userObj) => {
+    console.log('update in the firebase onAuthState');
+
+    if (userNotWritable && !userObj) {
+        invalidateAll();
     }
 
-    const { subscribe } = writable(auth?.currentUser ?? null, (set) => {
-        onAuthStateChanged(auth, (user) => {
-            set(user);
-        });
+    user.set(userObj);
+});
 
-        return () => unsubscribe();
-    });
-
-    return {
-        subscribe
-    };
-}
-
-export const user = userStore();
+user.subscribe((obj) => console.log('update to the user writable', obj?.displayName));

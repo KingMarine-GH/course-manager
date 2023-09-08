@@ -6,7 +6,7 @@
     onMount(() => {
         // Added setTimeout as Firebase needs a few milliseconds to initialize
         setTimeout(() => {
-            if (!$user) goto('/login');
+            if (!$user) goto(`/login?redirect=${window.location.pathname}`);
         }, 500);
     });
 </script>

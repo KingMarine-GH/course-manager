@@ -2,10 +2,15 @@
     // Check if there is an existing user
     import { user } from '$lib/client/auth';
     import { goto } from '$app/navigation';
+    import { onMount } from 'svelte';
 
-    if ($user) {
-        goto('/');
-    }
+    user.subscribe((userStore) => {
+        console.log('User: ', userStore);
+        if (userStore?.displayName) {
+            const searchParams = new URLSearchParams(window.location.search);
+            goto(searchParams.get('redirect') ?? '/');
+        }
+    });
 
     import { GoogleAuthProvider, signInWithPopup, getAuth } from 'firebase/auth';
     async function GoogleSignIn() {

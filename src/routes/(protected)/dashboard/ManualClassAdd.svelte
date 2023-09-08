@@ -155,7 +155,10 @@
             disabled={$timeArray.length == 1}>Remove</button
         >
     </div>
-    <button class="row-start-{$timeArray.length * 2 + 4} col-span-9 w-60 m-auto btn btn-primary">
+    <button
+        type="submit"
+        class="row-start-{$timeArray.length * 2 + 4} col-span-9 w-60 m-auto btn btn-primary"
+    >
         Add Class Manually
     </button>
 </form>
